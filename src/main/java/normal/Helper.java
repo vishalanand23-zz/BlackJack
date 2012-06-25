@@ -2,19 +2,19 @@ package normal;
 
 public class Helper {
 
-    public boolean isBust(int cards) {
+    public static boolean isBust(int cards) {
         return cards < 0;
     }
 
-    public Result result(int playerSum, int dealerSum) {
+    public static Result result(int playerSum, int dealerSum) {
         if (playerSum == -1) return Result.DEALER_WIN;
-        else if (dealerSum == -1) return Result.PLAYER_WIN;
-        else if (playerSum > dealerSum) return Result.PLAYER_WIN;
-        else if (dealerSum > playerSum) return Result.DEALER_WIN;
+        if (dealerSum == -1) return Result.PLAYER_WIN;
+        if (playerSum > dealerSum) return Result.PLAYER_WIN;
+        if (dealerSum > playerSum) return Result.DEALER_WIN;
         else return Result.PUSH;
     }
 
-    public int value(Card[] cards) {
+    public static int value(Card[] cards) {
         int sum = 0;
         for (Card card : cards) {
             int number = card.getNumber();
@@ -25,7 +25,7 @@ public class Helper {
         return sum;
     }
 
-    public Card deal() {
+    public static Card deal() {
         double d;
         d = Math.random();
         int suit = (int) Math.ceil(d * 4);

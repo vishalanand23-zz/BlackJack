@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import static normal.Helper.*;
+
 public class GamePlay {
-    Helper helper = new Helper();
 
     public static void main(String[] args) {
         Card[] player = new Card[0];
@@ -14,30 +15,30 @@ public class GamePlay {
     }
 
     private void initializeGame(Card[] player, Card[] dealer) {
-        player = add(player, helper.deal());
-        player = add(player, helper.deal());
-        dealer = add(dealer, helper.deal());
+        player = add(player, deal());
+        player = add(player, deal());
+        dealer = add(dealer, deal());
         System.out.println(playGame(player, dealer));
     }
 
     public Helper.Result playGame(Card[] player, Card[] dealer) {
         while (true) {
             showGameState(player, dealer);
-            if (helper.isBust(helper.value(player))) {
+            if (isBust(value(player))) {
                 return Helper.Result.DEALER_WIN;
             } else {
                 Helper.Choices choice = offerChoices();
                 if (choice == Helper.Choices.STAY) {
-                    while (helper.value(dealer) < 17) {
-                        dealer = add(dealer, helper.deal());
+                    while (value(dealer) < 17) {
+                        dealer = add(dealer, deal());
                         showGameState(player, dealer);
-                        if (helper.isBust(helper.value(dealer))) {
+                        if (isBust(value(dealer))) {
                             return Helper.Result.PLAYER_WIN;
                         }
                     }
-                    return helper.result(helper.value(player), helper.value(dealer));
+                    return result(value(player), value(dealer));
                 } else {
-                    player = add((player), helper.deal());
+                    player = add((player), deal());
                 }
             }
         }
@@ -57,8 +58,8 @@ public class GamePlay {
     }
 
     private void showGameState(Card[] player, Card[] dealer) {
-        System.out.println("player's value is: " + helper.value(player));
-        System.out.println("dealer's value is: " + helper.value(dealer));
+        System.out.println("player's value is: " + value(player));
+        System.out.println("dealer's value is: " + value(dealer));
         System.out.println("------------------------------------------");
     }
 
