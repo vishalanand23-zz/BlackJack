@@ -21,7 +21,6 @@ public class GamePlay {
     }
 
     public Helper.Result playGame(Card[] player, Card[] dealer) {
-        showGameState(player, dealer);
         while (true) {
             showGameState(player, dealer);
             if (helper.isBust(helper.value(player))) {
