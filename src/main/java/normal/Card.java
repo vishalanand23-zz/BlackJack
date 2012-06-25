@@ -24,8 +24,62 @@ public class Card {
         if (number < 1 || number > 13) throw new CardGenerationError();
     }
 
-    public int getNumber() {
+    public int value() {
+        if (number > 10) return 10;
         return number;
+    }
+
+    private String fetchNum() {
+        switch (number) {
+            case 1:
+                return "A";
+            case 2:
+                return "2";
+            case 3:
+                return "3";
+            case 4:
+                return "4";
+            case 5:
+                return "5";
+            case 6:
+                return "6";
+            case 7:
+                return "7";
+            case 8:
+                return "8";
+            case 9:
+                return "9";
+            case 10:
+                return "T";
+            case 11:
+                return "J";
+            case 12:
+                return "Q";
+            case 13:
+                return "K";
+            default:
+                throw new CardGenerationError();
+        }
+    }
+
+    private String fetchSuit() {
+        switch (suit) {
+            case 1:
+                return "♣";
+            case 2:
+                return "♦";
+            case 3:
+                return "♥";
+            case 4:
+                return "♠";
+            default:
+                throw new CardGenerationError();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return fetchSuit() + ":" + fetchNum();
     }
 
     public static class CardGenerationError extends RuntimeException {
