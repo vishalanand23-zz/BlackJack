@@ -9,16 +9,18 @@ import static normal.GamePlay.Choices.STAY;
 
 public class GamePlay {
 
+    private final DisplayResult displayResult = new DisplayResult();
+
     public static void main(String[] args) {
-        Player better = new Player();
+        Player gambler = new Player();
         Player dealer = new Player();
-        better.deal();
-        better.deal();
+        gambler.deal();
+        gambler.deal();
         dealer.deal();
-        System.out.println(new GamePlay().play(better, dealer));
+        System.out.println(new GamePlay().play(gambler, dealer));
     }
 
-    public Result play(Player better, Player dealer) {
+    public DisplayResult.Result play(Player better, Player dealer) {
         try {
             while (true) {
                 showGameState(better, dealer);
@@ -31,22 +33,12 @@ public class GamePlay {
                     dealer.deal();
                     showGameState(better, dealer);
                 }
-                return result(better, dealer);
+                return displayResult.result(better, dealer);
             }
         } catch (Player.PlayerBustException e) {
             showGameState(better, dealer);
-            return result(better, dealer);
+            return displayResult.result(better, dealer);
         }
-    }
-
-    public Result result(Player better, Player dealer) {
-        int playerSum = better.value();
-        int dealerSum = dealer.value();
-        if (playerSum == -1) return Result.DEALER_WIN;
-        if (dealerSum == -1) return Result.PLAYER_WIN;
-        if (playerSum > dealerSum) return Result.PLAYER_WIN;
-        if (dealerSum > playerSum) return Result.DEALER_WIN;
-        else return Result.PUSH;
     }
 
     private Choices askHitOrStay() {
@@ -69,10 +61,6 @@ public class GamePlay {
     }
 
     private static class WrongInputException extends RuntimeException {
-    }
-
-    public enum Result {
-        PLAYER_WIN, DEALER_WIN, PUSH, PLAYER_BLACK_JACK
     }
 
     public enum Choices {
