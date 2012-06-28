@@ -11,10 +11,13 @@ public class Player {
 
     public int value() {
         int sum = 0;
+        int countAces = 0;
         for (Card card : cards) {
             sum += card.value();
+            if (card.value() == 1) countAces++;
         }
-        if (sum > 21) sum = -1;
+        if (sum > 21) return -1;
+        if (sum < 12 && countAces > 0) sum += 10;
         return sum;
     }
 
