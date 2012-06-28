@@ -2,7 +2,7 @@ package normal;
 
 public class Dealer {
 
-    public static Card deal() {
+    public Card deal() {
         double d;
         d = Math.random();
         int suit = (int) Math.ceil(d * 4);

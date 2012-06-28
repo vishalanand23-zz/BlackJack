@@ -3,9 +3,11 @@ package normal;
 import java.util.ArrayList;
 
 public class Player {
-    ArrayList<Card> cards;
+    final ArrayList<Card> cards;
+    private final Dealer dealer;
 
-    public Player() {
+    public Player(Dealer dealer) {
+        this.dealer = dealer;
         this.cards = new ArrayList<Card>();
     }
 
@@ -26,7 +28,7 @@ public class Player {
     }
 
     public void deal() {
-        Card card = Dealer.deal();
+        Card card = dealer.deal();
         cards.add(card);
         if (isBust()) throw new PlayerBustException();
     }

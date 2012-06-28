@@ -10,10 +10,11 @@ import static normal.GamePlay.Choices.STAY;
 public class GamePlay {
 
     private final DisplayResult displayResult = new DisplayResult();
+    private final static Dealer cardDealer = new Dealer();
 
     public static void main(String[] args) {
-        Player gambler = new Player();
-        Player dealer = new Player();
+        Player gambler = new Player(cardDealer);
+        Player dealer = new Player(cardDealer);
         gambler.deal();
         gambler.deal();
         dealer.deal();

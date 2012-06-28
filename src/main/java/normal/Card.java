@@ -82,6 +82,12 @@ public class Card {
         return fetchSuit() + ":" + fetchNum();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        Card c = (Card) o;
+        return number == c.number && suit == c.suit;
+    }
+
     public static class CardGenerationError extends RuntimeException {
     }
 }
