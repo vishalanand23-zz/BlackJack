@@ -10,7 +10,7 @@ import static normal.GamePlay.Choices.STAY;
 public class GamePlay {
 
     private final DisplayResult displayResult = new DisplayResult();
-    private final static Dealer cardDealer = new Dealer();
+    private final static Dealer cardDealer = new Dealer(new RandomNumberGenerator());
 
     public static void main(String[] args) {
         Player gambler = new Player(cardDealer);

@@ -2,12 +2,18 @@ package normal;
 
 public class Dealer {
 
+    private RandomNumberGenerator randomNumberGenerator;
+
+    public Dealer() {
+    }
+
+    public Dealer(RandomNumberGenerator randomNumberGenerator) {
+        this.randomNumberGenerator = randomNumberGenerator;
+    }
+
     public Card deal() {
-        double d;
-        d = Math.random();
-        int suit = (int) Math.ceil(d * 4);
-        d = Math.random();
-        int number = (int) Math.ceil(d * 13);
+        int suit = randomNumberGenerator.generateInRange(1, 4);
+        int number = randomNumberGenerator.generateInRange(1, 13);
         return new Card(number, suit);
     }
 }
