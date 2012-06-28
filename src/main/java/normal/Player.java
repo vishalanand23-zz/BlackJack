@@ -31,14 +31,6 @@ public class Player {
         if (isBust()) throw new PlayerBustException();
     }
 
-    @Override
-    public String toString() {
-        for (Card card : cards) {
-            return card + " ";
-        }
-        return "";
-    }
-
     public static class PlayerBustException extends RuntimeException {
     }
 }
