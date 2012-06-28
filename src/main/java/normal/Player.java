@@ -23,14 +23,13 @@ public class Player {
         return sum;
     }
 
-    public boolean isBust() {
-        return value() < 0;
+    public void checkBust() {
+        if (value() < 0) throw new PlayerBustException();
     }
 
     public void deal() {
         Card card = dealer.deal();
         cards.add(card);
-        if (isBust()) throw new PlayerBustException();
     }
 
     public static class PlayerBustException extends RuntimeException {

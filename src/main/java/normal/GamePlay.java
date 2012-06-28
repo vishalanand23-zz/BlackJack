@@ -28,10 +28,12 @@ public class GamePlay {
                 Choices choices = askHitOrStay();
                 if (choices.equals(HIT)) {
                     gambler.deal();
+                    gambler.checkBust();
                     continue;
                 }
                 while (dealer.value() < 17) {
                     dealer.deal();
+                    dealer.checkBust();
                     showGameState(gambler, dealer);
                 }
                 return displayResult.result(gambler, dealer);

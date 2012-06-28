@@ -2,7 +2,8 @@ package normal;
 
 import org.junit.Test;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
 
 public class PlayerTest {
 
@@ -12,7 +13,7 @@ public class PlayerTest {
         Player p = new Player(dealer);
         dealCardsToPlayer(p, dealer, 7, 2);
         dealCardsToPlayer(p, dealer, 12, 2);
-        assertFalse(p.isBust());
+        p.checkBust();
     }
 
     @Test
@@ -23,6 +24,7 @@ public class PlayerTest {
             dealCardsToPlayer(p, dealer, 7, 2);
             dealCardsToPlayer(p, dealer, 12, 2);
             dealCardsToPlayer(p, dealer, 10, 2);
+            p.checkBust();
             fail();
         } catch (Player.PlayerBustException exception) {
         }
@@ -48,11 +50,15 @@ public class PlayerTest {
         assertTrue(p.value() == 18);
         dealCardsToPlayer(p, dealer, 1, 2);
         assertTrue(p.value() == 19);
+        dealCardsToPlayer(p, dealer, 10, 2);
+        assertTrue(p.value() == 19);
+        dealCardsToPlayer(p, dealer, 12, 2);
+        assertTrue(p.value() == -1);
     }
 
-    private void dealCardsToPlayer(Player p, DealerStub dealer, int i, int i1) {
-        dealer.setNumber(i);
-        dealer.setSuit(i1);
+    private void dealCardsToPlayer(Player p, DealerStub dealer, int number, int suit) {
+        dealer.setNumber(number);
+        dealer.setSuit(suit);
         p.deal();
     }
 
