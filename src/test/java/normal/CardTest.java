@@ -48,4 +48,10 @@ public class CardTest {
         int num = card.value();
         assertEquals(10, num);
     }
+
+    @Test
+    public void displayCard() {
+        Card card = new Card(1, 2);
+        assertEquals("♦:A", card.toString());
+    }
 }
