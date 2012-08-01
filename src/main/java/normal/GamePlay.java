@@ -1,16 +1,17 @@
 package normal;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-import static normal.GamePlay.Choices.HIT;
-import static normal.GamePlay.Choices.STAY;
+import static normal.GetChoice.Choice.HIT;
 
 public class GamePlay {
 
-    private final DisplayResult displayResult = new DisplayResult();
+    private final DisplayResult displayResult;
     private final static Dealer cardDealer = new Dealer(new RandomNumberGenerator());
+    private final GetChoice getChoice;
+
+    public GamePlay(GetChoice getChoice, DisplayResult displayResult) {
+        this.getChoice = getChoice;
+        this.displayResult = displayResult;
+    }
 
     public static void main(String[] args) {
         Player gambler = new Player(cardDealer);
@@ -18,15 +19,15 @@ public class GamePlay {
         gambler.deal();
         gambler.deal();
         dealer.deal();
-        System.out.println(new GamePlay().play(gambler, dealer));
+        System.out.println(new GamePlay(new GetChoice(), new DisplayResult()).play(gambler, dealer));
     }
 
     public DisplayResult.Result play(Player gambler, Player dealer) {
         try {
             while (true) {
                 showGameState(gambler, dealer);
-                Choices choices = askHitOrStay();
-                if (choices.equals(HIT)) {
+                GetChoice.Choice choice = getChoice.askHitOrStay();
+                if (choice.equals(HIT)) {
                     gambler.deal();
                     gambler.checkBust();
                     continue;
@@ -44,29 +45,9 @@ public class GamePlay {
         }
     }
 
-    private Choices askHitOrStay() {
-        System.out.println("For stay Enter 'S'/'s'. For hit Enter 'H'/'h'.");
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            String input = br.readLine().substring(0, 1);
-            if (input.compareToIgnoreCase("S") == 0) return STAY;
-            if (input.compareToIgnoreCase("H") == 0) return HIT;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        throw new WrongInputException();
-    }
-
     private void showGameState(Player gambler, Player dealer) {
         System.out.println("gambler's value is: " + gambler.value() + " with cards:" + gambler.cards);
         System.out.println("dealer's value is: " + dealer.value() + " with cards:" + dealer.cards);
         System.out.println("------------------------------------------");
-    }
-
-    private static class WrongInputException extends RuntimeException {
-    }
-
-    public enum Choices {
-        HIT, STAY
     }
 }
