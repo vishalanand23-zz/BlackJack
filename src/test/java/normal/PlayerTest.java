@@ -59,28 +59,23 @@ public class PlayerTest {
     }
 
     private void dealCardsToPlayer(Player p, DealerStub dealer, int number, int suit) {
-        dealer.setNumber(number);
-        dealer.setSuit(suit);
+        dealer.setCards(new Card(number, suit));
         p.deal();
     }
 
     public static class DealerStub extends Dealer {
 
-        private int number;
-        private int suit;
-
+        private Card[] cards;
+        private int index;
 
         @Override
         public Card deal() {
-            return new Card(number, suit);
+            return cards[index++];
         }
 
-        public void setNumber(int number) {
-            this.number = number;
-        }
-
-        public void setSuit(int suit) {
-            this.suit = suit;
+        public void setCards(Card... cards) {
+            index = 0;
+            this.cards = cards;
         }
     }
 }

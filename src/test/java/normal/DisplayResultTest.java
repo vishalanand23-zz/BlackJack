@@ -70,8 +70,7 @@ public class DisplayResultTest {
     }
 
     private void dealCardsToPlayer(Player p, PlayerTest.DealerStub dealer, int number, int suit) {
-        dealer.setNumber(number);
-        dealer.setSuit(suit);
+        dealer.setCards(new Card(number, suit));
         p.deal();
     }
 }
