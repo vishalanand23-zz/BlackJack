@@ -14,8 +14,8 @@ public class DisplayResult {
         int dealerSum = dealer.value();
         Result gameResult;
         if (playerSum == -1) gameResult = Result.DEALER_WIN;
-        else if (dealerSum == -1) gameResult = Result.PLAYER_WIN;
-        else if (playerSum > dealerSum) gameResult = Result.PLAYER_WIN;
+        else if (dealerSum == -1) gameResult = Result.GAMBLER_WIN;
+        else if (playerSum > dealerSum) gameResult = Result.GAMBLER_WIN;
         else if (dealerSum > playerSum) gameResult = Result.DEALER_WIN;
         else gameResult = Result.PUSH;
         dao.insert(gameResult);
@@ -23,7 +23,7 @@ public class DisplayResult {
     }
 
     public enum Result {
-        PLAYER_WIN, DEALER_WIN, PUSH
+        GAMBLER_WIN, DEALER_WIN, PUSH
     }
 
     public static class Dao {
